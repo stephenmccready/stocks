@@ -10,7 +10,6 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
-
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <style>
             body {
@@ -23,46 +22,6 @@
 
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 		
-		<script type='text/javascript'>  	
-			function stock_prices(o){
-			  var rows = o.query.results.row;  
-			  var output = '<table class="table table-striped table-responsive"><tr><th>Stock</th><th>Price</th></tr>';  
-			  var no_rows=rows.length;  
-			  for(var i=0;i<no_rows;i++){
-				var stock_symbol = rows[i].symbol;
-				var stock_price = rows[i].price;
-				var stock_date = rows[i].date;
-				var stock_time = rows[i].time;
-				var stock_change = rows[i].change;
-				var stock_col1 = rows[i].col1;
-				var stock_high = rows[i].high;
-				var stock_low = rows[i].low;
-				var stock_col2 = rows[i].col2;
-				output += "<tr><td>" + stock_symbol + "</td><td>"+stock_price+"</td></tr>";  
-			  } 
-			  output += '</table>';
-			  document.getElementById('results').innerHTML = output;    
-			}
-			
-			function stock_symbol_search(o){
-			  var rows = o.ResultSet.Result;  
-			  var output = '<table class="table table-striped table-responsive"><tr><th>Symbol</th><th>Name</th><th>Type</th></tr>';  
-			  var no_rows=rows.length;  
-			  for(var i=0;i<no_rows;i++){
-				var stock_symbol = rows[i].symbol;
-				var company_name = rows[i].name;
-				var stock_exchange = rows[i].exch;
-				var stock_type = rows[i].type;
-				var stock_change = rows[i].change;
-				var stock_exchangeDisp = rows[i].exchDisp;
-				var stock_typeDisp = rows[i].typeDisp;
-				output += "<tr><td>" + stock_symbol + "</td><td>"+company_name+"</td><td>"+stock_typeDisp+"</td></tr>";  
-			  } 
-			  output += '</table>';
-			  document.getElementById('stock_symbol_results').innerHTML = output;    
-			}
-		</script> 
-	
     </head>
     <body>
         <!--[if lt IE 8]>
@@ -93,12 +52,10 @@
       </div>
     </nav>
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
         <h1>Diversifying Your Portfolio</h1>
         <p>In 3 simple steps</p>
-        <!-- <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p> -->
       </div>
     </div>
 
@@ -106,17 +63,8 @@
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-4">
-          <h2>1. Enter your current holdings</h2>
-          <p>
-		   <div class="form-group form-group-lg">
-              <input type="text" placeholder="Stock Symbol" class="form-control">
-			  <!-- <span class="glyphicon glyphicon-ok form-control-feedback"></span> -->
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
-            </div>
-		  </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+          <h2>1. Enter your current Stock holdings</h2>
+
         </div>
         <div class="col-md-4">
           <h2>2. Generate your detailed Diversified Fleeto analysis</h2>
@@ -132,19 +80,49 @@
 
       <hr>
 
-		<div id='results'></div>  
-		<script src='http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20csv%20where%20url%3D%27http%3A%2F%2Fdownload.finance.yahoo.com%2Fd%2Fquotes.csv%3Fs%3DYHOO%2CGOOG%2CAAPL%26f%3Dsl1d1t1c1ohgv%26e%3D.csv%27%20and%20columns%3D%27symbol%2Cprice%2Cdate%2Ctime%2Cchange%2Ccol1%2Chigh%2Clow%2Ccol2%27&format=json&diagnostics=true&callback=stock_prices'></script> 
-		<div id='stock_symbol_results'></div>  
-		<script src='https://s.yimg.com/aq/autoc?query=Magellan&region=US&lang=en-US&callback=stock_symbol_search'></script>
-		
+      <div id='stockHoldings'>
+	    <p>
+		<form class="form-inline" role="form" id="stockHoldingsForm">
+		<table class="table table-striped table-responsive" id="mytable" width="300" border="1" cellspacing="0" cellpadding="2">
+		    <thead>
+			<tr><th>Stock<br />Symbol</th><th>Stock<br />Name</th><th>Current<br />Share Price*</th><th>Number<br />of Shares</th><th>Value</th><th></th></tr>
+		    </thead>
+		    <tbody>
+		      <tr onmousedown="globalCurrentIndex=(this.rowIndex)-1;">
+			<td>
+			    <input id="stockSymbol0" name="stockSymbol0" type="text" placeholder="Stock Symbol" class="form-control">
+			    <a class="btn btn-info" id="stockSymbolSearch" name="stockSymbolSearch" ><span class="glyphicon glyphicon-search"></span></a>
+			</td>
+			<td>
+			    <div id="stockName0"></div>
+			</td>
+			<td>
+			    <div id="stockPrice0"></div>
+			</td>
+			<td>
+			    <input id="stockCount0" name="stockCount0" type="text" placeholder="Number of shares" class="form-control" onkeyup="stockCalc();">
+			</td>
+			<td>
+			    <div id="stockValue0"></div>
+			</td>
+			<td>
+			    <a class="btn btn-success" id="add" role="button"><span class="glyphicon glyphicon-plus"></span></a>
+			    <a class="btn btn-danger" id="remove" role="button"><span class="glyphicon glyphicon-minus"></span></a>
+			</td>
+		      </tr>
+		    </tbody>
+		</table>
+		</form>
+	    </p>
+      </div>
+	
       <footer>
         <p>&copy; Diversified Fleeto Inc. 2016</p>
       </footer>
-    </div> <!-- /container -->        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
-
-        <script src="js/vendor/bootstrap.min.js"></script>
-
-        <script src="js/main.js"></script>
+    </div> <!-- /container -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
     </body>
 </html>
