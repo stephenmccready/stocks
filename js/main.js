@@ -31,6 +31,7 @@ function getStockName(stockSymbol) {
 }
 
 function stock_name(o){
+//    alert(o.toSource());
     var rows = o.ResultSet.Result;  
     var output = '';  
     var no_rows=rows.length;  
@@ -58,5 +59,11 @@ function stock_details(o){
 
 function stockCalc() {
     var stockValue=parseFloat($("#stockPrice"+globalCurrentIndex).text()) * parseFloat($("#stockCount"+globalCurrentIndex).val());
-    $("#stockValue"+globalCurrentIndex).text("$"+stockValue.toFixed(2));
+    $("#stockValue"+globalCurrentIndex).text(stockValue.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'));
+    
+    var totalStockValue=0;
+    for(var i=0;i<(globalNewIndex+1);i++){
+        totalStockValue+=parseFloat($("#stockPrice"+i).text()) * parseFloat($("#stockCount"+i).val());
+    }
+    $("#totalStockValue").text(totalStockValue.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'));
 }
