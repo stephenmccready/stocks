@@ -4,8 +4,7 @@ var globalCurrentIndex = 0;
 $(document).ready(function() {
     
     $("#stockSymbolSearch").click(function() {
-	getStockName($("#stockSymbol"+globalCurrentIndex).val());
-	getStockPrice($("#stockSymbol"+globalCurrentIndex).val());
+        jStockLookUp($("#stockSymbol"+globalCurrentIndex).val());
     });
 
     $("#add").click(function() {
@@ -23,6 +22,13 @@ $(document).ready(function() {
         return false;
     });
 });
+
+function jStockLookUp (stockSymbol) {
+    if(stockSymbol.length>2) {
+        getStockName(stockSymbol);
+        getStockPrice(stockSymbol);
+    }
+}
 
 function getStockName(stockSymbol) {
     var script = document.createElement('script');
