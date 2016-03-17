@@ -19,6 +19,12 @@
 	    #mytable td{
 		vertical-align: middle;
 	    }
+	    #mytable th{
+		text-align: center;
+	    }
+	    .thLeft {
+		text-align: left !important;
+	    }
         </style>
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
@@ -89,7 +95,7 @@
 		    <thead>
 			<tr>
 			    <th>Stock Symbol</th>
-			    <th>Stock Name</th>
+			    <th class="thLeft">Stock Name</th>
 			    <th>Price*</th>
 			    <th>Number of<br />Shares</th>
 			    <th>Value</th>
@@ -98,23 +104,19 @@
 		    </thead>
 		    <tbody>
 		      <tr onmousedown="globalCurrentIndex=(this.rowIndex)-1;">
-			<td width="25%">
-			    <span class="col-md-6">
-				<input id="stockSymbol0" name="stockSymbol0" type="text" placeholder="Symbol" class="form-control">
-			    </span>
-			    <span class="col-md-1">
-				<a class="btn btn-info" id="stockSymbolSearch" name="stockSymbolSearch"><span class="glyphicon glyphicon-search"></span></a>
-			    </span>
+			<td width="10%">
+			    <input id="stockSymbol0" name="stockSymbol0" type="text" placeholder="Symbol" class="form-control" onkeyup="jStockLookUp(this.value)">
+			    <!-- <a class="btn btn-info" id="stockSymbolSearch" name="stockSymbolSearch"><span class="glyphicon glyphicon-search"></span></a> -->  
 			</td>
-			<td width="30%">
+			<td width="35%">
 			    <div id="stockName0"></div>
 			</td>
 			<td width="5%" class="text-right">
 			    <div id="stockPrice0"></div>
 			</td>
-			<td width="15%">
+			<td width="10%">
 			    <span class="col-md-12">
-				<input id="stockCount0" name="stockCount0" type="text" placeholder="# of shares" class="form-control" onkeyup="stockCalc();">
+				<input id="stockCount0" name="stockCount0" type="number" placeholder="# of shares" class="form-control" onkeyup="stockCalc();">
 			    </span>
 			</td>
 			<td width="10%" class="text-right">
