@@ -1,10 +1,10 @@
 <?php
 date_default_timezone_set('America/New_York');
 
-define("DB_SERVER", "db500881646.db.1and1.com");
-define("DB_USER", "dbo500881646");
-define("DB_PASS", "Cool10!");
-define("DB_NAME", "db500881646");
+define("DB_SERVER", "your db server goes here");
+define("DB_USER", "your db user");
+define("DB_PASS", "your db password");
+define("DB_NAME", "your db name");
 
 class MySQLDB
 {
