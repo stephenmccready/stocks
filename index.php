@@ -1,4 +1,7 @@
 <!doctype html>
+<?php
+include('php\configDB.php'); 
+?>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
@@ -49,6 +52,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <form id="login_form" class="navbar-form navbar-right" role="form">
+	    <div class="form-group">
+		<a class="btn btn-success" id="temp" role="button"><span class="glyphicon glyphicon-transfer"></span></a>
+	    </div>
             <div class="form-group">
               <input type="text" placeholder="Email" class="form-control">
             </div>
@@ -99,14 +105,15 @@
 			    <th>Price*</th>
 			    <th>Number of<br />Shares</th>
 			    <th>Value</th>
-			    <th></th>
+			    <th class="thLeft"><a class="btn btn-primary disabled" id="save" role="button" onclick="jSaveStockAll(this.id)"><span class="glyphicon glyphicon-floppy-disk"></span> Save All</a>
+			    </th>
 			</tr>
 		    </thead>
 		    <tbody>
-		      <tr onmousedown="globalCurrentIndex=(this.rowIndex)-1;">
+		      <tr onmousedown="globalCurrentIndex=(this.rowIndex)-1;" id="tr0">
 			<td width="10%">
-			    <input id="stockSymbol0" name="stockSymbol0" type="text" placeholder="Symbol" class="form-control" onkeyup="jStockLookUp(this.value)">
-			    <!-- <a class="btn btn-info" id="stockSymbolSearch" name="stockSymbolSearch"><span class="glyphicon glyphicon-search"></span></a> -->  
+			    <input id="stockSymbol0" name="stockSymbol0" type="text" placeholder="Symbol" class="form-control" onkeyup="jStockLookUp(this.value)" style="text-transform:uppercase;">
+			    <input id="stockID0" name="stockID0" type="hidden"> 
 			</td>
 			<td width="35%">
 			    <div id="stockName0"></div>
@@ -116,15 +123,16 @@
 			</td>
 			<td width="10%">
 			    <span class="col-md-12">
-				<input id="stockCount0" name="stockCount0" type="number" placeholder="# of shares" class="form-control" onkeyup="stockCalc();">
+				<input id="stockCount0" name="stockCount0" type="number" placeholder="# of shares" class="form-control" onkeyup="stockCalc();" onmouseup="stockCalc();">
 			    </span>
 			</td>
 			<td width="10%" class="text-right">
 			    <div id="stockValue0"></div>
 			</td>
 			<td width="15%">
+			    <a class="btn btn-primary disabled" id="save0" role="button" onclick="jSaveStockLine(this.id)"><span class="glyphicon glyphicon-floppy-disk"></span></a>
 			    <a class="btn btn-success" id="add" role="button"><span class="glyphicon glyphicon-plus"></span></a>
-			    <a class="btn btn-danger" id="remove" role="button"><span class="glyphicon glyphicon-minus"></span></a>
+			    <a class="btn btn-danger" id="remove0" role="button" onclick="jDeleteStockLine(this.id)"><span class="glyphicon glyphicon-minus"></span></a>
 			</td>
 		      </tr>
 		    </tbody>
@@ -137,6 +145,7 @@
 	
       <footer>
         <p>&copy; Diversified Fleeto Inc. 2016</p>
+	<div id="debug"></div>
       </footer>
     </div> <!-- /container -->
     
